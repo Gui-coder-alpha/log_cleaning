@@ -1,25 +1,32 @@
 #/var/log/syslog and /var/log/auth.log
 #arquivos a serem limpados
 
-path_storage="/home/guilh/log_cleaning/storage/test_files.csv"
+path_storage = "/home/guilh/log_cleaning/storage/test_files.csv"
 
 
 class Organize_files:
-    def __init__(self, file_csv):
-        self.file_csv = file_csv
-        with open(self.file_csv, "r") as test_files:
-            conteudo = test_files.read()
-            self.conteudo_primario = conteudo
+    def __init__(self, path_storage):
+        self.file_csv = path_storage
 
+    def transformation(self):
+        with open(self.file_csv, "r") as test_files:
+            self.conteudo = test_files.read().split()
+            #print(self.conteudo)
 
     def separate_problems(self):
-        denied_files = self.conteudo_primario.split()
-        for denied_files in self.conteudo_primario:
-            print(denied_files)
+        problems = ["denied","fail","failed","Fail","Failed","error","critical","unauthorized"]
+        if problems in self.conteudo:
+            print("hi")
+        else:
+            print("none")
             
+    
+    
+    def ALL_TASKS(self):
+        self.transformation()
+        self.separate_problems()
    
-    def filtro(self):
-        oi = 3
-        return
+       
 
-Organize_files(path_storage)
+FUNCTION_CLASS = Organize_files(path_storage)
+FUNCTION_CLASS.ALL_TASKS()
