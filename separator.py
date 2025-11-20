@@ -1,5 +1,6 @@
 #/var/log/syslog and /var/log/auth.log
 #arquivos a serem limpados
+import os
 
 path_storage = "/home/guilh/log_cleaning/storage/test_files.csv"
 
@@ -14,7 +15,6 @@ class Organize_files:
         with open(self.file_csv, "r") as files_in_split:
             self.splitting_file = files_in_split.read()
             self.true_split_file = self.splitting_file.split()
-            print(self.true_split_file)
 
     def separate_problems(self):
         self.problems = {'fail':0,'error':0,'critical':0,'denied':0,
@@ -35,7 +35,15 @@ class Organize_files:
 
     def determined_directory(self):
         print("/////////////////////////////////////////")
-        #'/proc/sys
+        directory_path = "/proc/sys"
+        armazened_directories = []
+        for root, dirs, files in self.true_split_file:
+                for root, dirs, files in os.walk(directory_path):
+                    armazened_directories.append(root)
+        for path in armazened_directories:
+            print(path)
+
+        print("/////////////////////////////////////////")
         
 
     def final_relatory(self):
